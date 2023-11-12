@@ -7,14 +7,14 @@ public class UserMapper {
 
     public static UserDTO toDTO(UserBO bo) {
         return new UserDTO(
-                bo.getId(),
-                bo.getFirstName(),
-                bo.getLastName(),
-                bo.getDocument(),
-                bo.getEmail(),
-                bo.getPassword(),
-                bo.getBalance(),
-                bo.getUserType()
+                bo.id(),
+                bo.firstName(),
+                bo.lastName(),
+                bo.document(),
+                bo.email(),
+                bo.password(),
+                bo.balance(),
+                bo.userType()
         );
     }
 

@@ -7,10 +7,10 @@ public class JakartaTransactionMapper {
 
     public static JakartaTransaction toEntity(TransactionBO domain) {
         return new JakartaTransaction(
-                domain.getAmount(),
-                JakartaUserMapper.toEntity(domain.getSender()),
-                JakartaUserMapper.toEntity(domain.getReceiver()),
-                domain.getTimestamp()
+                domain.amount(),
+                JakartaUserMapper.toEntity(domain.sender()),
+                JakartaUserMapper.toEntity(domain.receiver()),
+                domain.timestamp()
         );
     }
 

@@ -7,21 +7,21 @@ public class TransactionMapper {
 
     public static TransactionDTO toDTO(TransactionBO bo) {
         return new TransactionDTO(
-                bo.getId(),
-                bo.getAmount(),
-                UserMapper.toDTO(bo.getSender()),
-                UserMapper.toDTO(bo.getReceiver()),
-                bo.getTimestamp()
+                bo.id(),
+                bo.amount(),
+                UserMapper.toDTO(bo.sender()),
+                UserMapper.toDTO(bo.receiver()),
+                bo.timestamp()
         );
     }
 
     public static TransactionBO toBO(TransactionDTO dto) {
         return new TransactionBO(
-                dto.getId(),
-                dto.getAmount(),
-                UserMapper.toBO(dto.getSender()),
-                UserMapper.toBO(dto.getReceiver()),
-                dto.getTimestamp()
+                dto.id(),
+                dto.amount(),
+                UserMapper.toBO(dto.sender()),
+                UserMapper.toBO(dto.receiver()),
+                dto.timestamp()
         );
     }
 

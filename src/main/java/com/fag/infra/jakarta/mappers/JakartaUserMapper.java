@@ -7,14 +7,14 @@ public class JakartaUserMapper {
 
     public static JakartaUser toEntity(UserBO domain) {
         return new JakartaUser(
-                domain.getId(),
-                domain.getFirstName(),
-                domain.getLastName(),
-                domain.getDocument(),
-                domain.getEmail(),
-                domain.getPassword(),
-                domain.getBalance(),
-                domain.getUserType()
+                domain.id(),
+                domain.firstName(),
+                domain.lastName(),
+                domain.document(),
+                domain.email(),
+                domain.password(),
+                domain.balance(),
+                domain.userType()
         );
     }
 

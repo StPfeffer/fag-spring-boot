@@ -3,6 +3,7 @@ package com.fag.controllers;
 import com.fag.domain.dtos.TransactionDTO;
 import com.fag.domain.dtos.TransactionRequestDTO;
 import com.fag.services.TransactionService;
+import com.fag.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,9 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping
     public ResponseEntity<TransactionDTO> createTransaction(@RequestBody TransactionRequestDTO request) {
         TransactionDTO newTransaction = this.transactionService.createTransaction(request);
@@ -30,8 +34,13 @@ public class TransactionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TransactionDTO> getTransactionById(@PathVariable Long id) {
+    public ResponseEntity<TransactionDTO> getTransaction(@PathVariable Long id) {
         return ResponseEntity.ok(this.transactionService.findTransactionById(id));
+    }
+
+    @GetMapping("/sender/{senderId}")
+    public ResponseEntity<List<TransactionDTO>> listTransactionsBySender(@PathVariable Long senderId) {
+        return ResponseEntity.ok(this.transactionService.listAllTransactionsBySender(this.userService.findUserById(senderId)));
     }
 
 }

@@ -56,7 +56,7 @@ public class TransactionService implements ITransactionRepository {
 
     @Override
     public List<TransactionDTO> listAllTransactionsBySender(UserDTO sender) {
-        return null;
+        return this.repository.listAllTransactionsBySender(sender);
     }
 
     @Override

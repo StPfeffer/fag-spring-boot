@@ -18,12 +18,12 @@ public class TransactionMapper {
 
     public static TransactionBO toBO(TransactionDTO dto) {
         return new TransactionBO(
-                dto.id(),
-                dto.amount(),
-                UserMapper.toBO(dto.sender()),
-                UserMapper.toBO(dto.receiver()),
-                dto.timestamp(),
-                dto.success()
+                dto.getId(),
+                dto.getAmount(),
+                UserMapper.toBO(dto.getSender()),
+                UserMapper.toBO(dto.getReceiver()),
+                dto.getTimestamp(),
+                dto.isSuccess()
         );
     }
 

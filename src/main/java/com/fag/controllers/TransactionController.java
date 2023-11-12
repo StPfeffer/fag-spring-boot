@@ -29,4 +29,9 @@ public class TransactionController {
         return ResponseEntity.ok(this.transactionService.listAllTransactions());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<TransactionDTO> getTransactionById(@PathVariable Long id) {
+        return ResponseEntity.ok(this.transactionService.findTransactionById(id));
+    }
+
 }

@@ -77,7 +77,16 @@ public class JakartaTransactionRepository extends SimpleJpaRepository<JakartaTra
 
     @Override
     public List<TransactionDTO> listAllTransactionsByReceiver(UserDTO receiver) {
-        return null;
+        TypedQuery<JakartaTransaction> query = em.createQuery("SELECT e FROM JakartaTransaction e WHERE e.receiver = :receiver", JakartaTransaction.class)
+                .setParameter("receiver", JakartaUserMapper.toEntity(UserMapper.toBO(receiver)));
+
+        try {
+            return query.getResultList().stream()
+                    .map(jakartaTransaction -> TransactionMapper.toDTO(JakartaTransactionMapper.toDomain(jakartaTransaction)))
+                    .collect(Collectors.toList());
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
 }

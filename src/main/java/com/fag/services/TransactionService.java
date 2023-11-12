@@ -33,7 +33,7 @@ public class TransactionService implements ITransactionRepository {
     private MockyTransaction mocky;
 
     @Autowired
-    private MockyNotification notification;
+    private NotificationService notificationService;
 
     /**
      * Cria uma nova transação entre usuários.
@@ -44,15 +44,12 @@ public class TransactionService implements ITransactionRepository {
      */
     @Transactional
     public TransactionDTO createTransaction(TransactionRequestDTO request) {
-        UserDTO sender = this.userService.findUserById(request.getSenderId());
-        UserDTO receiver = this.userService.findUserById(request.getReceiverId());
+        UserDTO sender = userService.findUserById(request.getSenderId());
+        UserDTO receiver = userService.findUserById(request.getReceiverId());
 
-        this.userService.validateTransaction(sender, request.getValue());
+        userService.validateTransaction(sender, request.getValue());
 
-        if (!this.mocky.authorizeTransaction()) {
-            throw new TransactionException("Transação não autorizada pelo serviço", 500);
-        }
-
+        this.authorizeTransaction();
         this.updateBalance(sender, receiver, request.getValue());
 
         TransactionDTO dto = new TransactionDTO(
@@ -64,11 +61,52 @@ public class TransactionService implements ITransactionRepository {
                 true
         );
 
-        this.notification.sendNotification(sender, "Transação realizada com sucesso!");
-        this.notification.sendNotification(receiver, "Transação recebida com sucesso!");
+        this.sendTransactionNotifications(sender, receiver);
 
-        CreateTransaction createTransaction = new CreateTransaction(repository);
-        return createTransaction.execute(dto);
+        try {
+            CreateTransaction createTransaction = new CreateTransaction(repository);
+
+            return createTransaction.execute(dto);
+        } catch (Exception e) {
+            this.handleTransactionFailure(sender, receiver, request.getValue());
+
+            throw new TransactionException("Falha ao realizar a transação", 500);
+        }
+    }
+
+    /**
+     * Verifica se a transação está autorizada usando o serviço mocky.
+     *
+     * @throws TransactionException Se a transação não estiver autorizada.
+     */
+    private void authorizeTransaction() {
+        if (!mocky.authorizeTransaction()) {
+            throw new TransactionException("Transação não autorizada pelo serviço", 500);
+        }
+    }
+
+    /**
+     * Envia notificações de sucesso para o remetente e o destinatário após uma
+     * transação bem-sucedida.
+     *
+     * @param sender   O remetente da transação.
+     * @param receiver O destinatário da transação.
+     */
+    private void sendTransactionNotifications(UserDTO sender, UserDTO receiver) {
+        notificationService.sendNotification(sender, "Transação realizada com sucesso!");
+        notificationService.sendNotification(receiver, "Transação recebida com sucesso!");
+    }
+
+    /**
+     * Manipula a falha de uma transação, atualizando saldos e enviando notificações.
+     *
+     * @param sender   O remetente da transação.
+     * @param receiver O destinatário da transação.
+     * @param value    O valor da transação.
+     */
+    private void handleTransactionFailure(UserDTO sender, UserDTO receiver, BigDecimal value) {
+        this.updateBalance(receiver, sender, value);
+        notificationService.sendNotification(sender, "Não foi possível realizar a transação");
     }
 
     /**
@@ -148,6 +186,7 @@ public class TransactionService implements ITransactionRepository {
         UserDTO sender = transaction.getSender();
         UserDTO receiver = transaction.getReceiver();
 
+        // Reverte o saldo dos usuários
         this.updateBalance(receiver, sender, transaction.getAmount());
 
         transaction.setSuccess(false);

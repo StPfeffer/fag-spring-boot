@@ -1,6 +1,6 @@
 package com.fag.infra.mocky.repository;
 
-import com.fag.domain.repositories.ITransaction;
+import com.fag.domain.interfaces.ITransaction;
 import com.fag.infra.mocky.dto.MockyAuthorizationResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

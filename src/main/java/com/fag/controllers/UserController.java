@@ -28,9 +28,14 @@ public class UserController {
         return ResponseEntity.ok(this.userService.listAllUsers());
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long userId) throws Exception {
-        return ResponseEntity.ok(this.userService.findUserById(userId));
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) throws Exception {
+        return ResponseEntity.ok(this.userService.findUserById(id));
+    }
+
+    @GetMapping("/document/{document}")
+    public ResponseEntity<UserDTO> getUserByDocument(@PathVariable String document) {
+        return ResponseEntity.ok(this.userService.findUserByDocument(document));
     }
 
 }

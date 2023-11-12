@@ -8,6 +8,8 @@ import com.fag.domain.repositories.IUserRepository;
 import com.fag.infra.jakarta.mappers.JakartaUserMapper;
 import com.fag.infra.jakarta.model.JakartaUser;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +58,14 @@ public class JakartaUserRepository extends SimpleJpaRepository<JakartaUser, Long
 
     @Override
     public UserDTO findUserByDocument(String document) {
-        return null;
+        TypedQuery<JakartaUser> query = em.createQuery("SELECT e FROM JakartaUser e WHERE e.document = :document", JakartaUser.class)
+                .setParameter("document", document);
+
+        try {
+            return UserMapper.toDTO(JakartaUserMapper.toDomain(query.getSingleResult()));
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
 }

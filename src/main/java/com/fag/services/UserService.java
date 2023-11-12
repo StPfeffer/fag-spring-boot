@@ -39,7 +39,7 @@ public class UserService implements IUserRepository {
 
     @Override
     public UserDTO findUserByDocument(String document) {
-        return null;
+        return this.repository.findUserByDocument(document);
     }
 
 }

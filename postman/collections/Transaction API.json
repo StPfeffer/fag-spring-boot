@@ -1,0 +1,468 @@
+{
+	"info": {
+		"_postman_id": "4b671009-ca02-4fd4-8965-1ec61698a7d5",
+		"name": "Transaction API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "25630504-4b671009-ca02-4fd4-8965-1ec61698a7d5"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get User by ID",
+					"id": "d584f96b-4186-4632-979e-af2f766f20dd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/users/:userId",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"id": "d2eaa8ae-ef19-43c4-bbbc-47a4b8ef89ee",
+									"key": "userId",
+									"value": "1",
+									"description": "O ID do usuário que deseja buscar"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by Document",
+					"id": "01604857-bb82-4a6d-bcb9-dfb98ce86b9c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/users/document/:document",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"users",
+								"document",
+								":document"
+							],
+							"variable": [
+								{
+									"id": "1164e6ad-6473-4799-b758-0e12ab82528d",
+									"key": "document",
+									"value": "09876543210",
+									"description": "O CPF do usuário que deseja buscar"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Users",
+					"id": "eee65d1b-5fea-44af-9148-9874a80e1e2f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/users",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"id": "e4358e2b-d07f-44e0-8baa-ae73901fc87d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Mateus\",\r\n    \"lastName\": \"Pfeffer\",\r\n    \"document\": \"012345678453\",\r\n    \"email\": \"mateus.pfeffe4567745@minha.fag.edu.br\",\r\n    \"password\": \"senha123\",\r\n    \"type\": \"MERCHANT\",\r\n    \"balance\": 1000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/users",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Batch Create Users",
+					"id": "dd804c18-12ca-42a3-939a-f357b5557edb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"firstName\": \"Mateus\",\r\n        \"lastName\": \"Pfeffer\",\r\n        \"document\": \"01234567890\",\r\n        \"email\": \"mateus.pfeffer@minha.fag.edu.br\",\r\n        \"password\": \"senha123\",\r\n        \"type\": \"COMMON\",\r\n        \"balance\": 250\r\n    },\r\n    {\r\n        \"firstName\": \"Elenilton\",\r\n        \"lastName\": \"Dezengrini\",\r\n        \"document\": \"09876543210\",\r\n        \"email\": \"elenilton.dezengrini@fag.edu.br\",\r\n        \"password\": \"elenilton123\",\r\n        \"type\": \"COMMON\",\r\n        \"balance\": 120\r\n    },\r\n    {\r\n        \"firstName\": \"Usuário\",\r\n        \"lastName\": \"Lojista\",\r\n        \"document\": \"00000000010\",\r\n        \"email\": \"usuario.lojista@fag.edu.br\",\r\n        \"password\": \"lojista123\",\r\n        \"type\": \"MERCHANT\",\r\n        \"balance\": 1200\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/users/batch",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"users",
+								"batch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User by ID",
+					"id": "21d20a66-9bc8-4973-9eb7-056e73c9ebb9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Mateus\",\r\n    \"lastName\": \"Pfeffer\",\r\n    \"document\": \"01234567890\",\r\n    \"email\": \"mateus.pfeffer2@minha.fag.edu.br\",\r\n    \"password\": \"senha123\",\r\n    \"balance\": 350.00,\r\n    \"type\": \"COMMON\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/users/:userId",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"id": "24f468d7-e5b9-4af8-aeb5-1fcd38295ace",
+									"key": "userId",
+									"value": "1",
+									"description": "O ID do usuário que deseja atualizar"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User by ID",
+					"id": "7dc80a64-fbfa-418b-a9bb-b08ad7a1b807",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/users/:userId",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"id": "b0f67b13-4698-4d70-8ed9-78038e01932f",
+									"key": "userId",
+									"value": "3",
+									"description": "O ID do usuário que deseja atualizar"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "82bf4d17-821d-41c0-aa9d-3f29deb1f01f"
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "Get Transaction by ID",
+					"id": "35c1c123-789d-406b-923b-c9e726aeba63",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/transactions/:transactionId",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"transactions",
+								":transactionId"
+							],
+							"variable": [
+								{
+									"id": "876f897e-a83e-414b-a743-1f1532accf52",
+									"key": "transactionId",
+									"value": "1",
+									"description": "O ID da transação que deseja buscar"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Transactions",
+					"id": "540986d0-2444-4989-b360-0449e8dc71d9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/transactions",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Transactions by User ID",
+					"id": "b104561d-c36b-40b3-882b-e577b95d1ac3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/transactions/:userId",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"transactions",
+								":userId"
+							],
+							"variable": [
+								{
+									"id": "cd055732-d570-4f04-af63-4b6da97f6fe8",
+									"key": "userId",
+									"value": "1",
+									"description": "O ID do usuário (pode ser tanto remetente quando destinatário)"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Transactions by Sender ID",
+					"id": "bf944733-390d-453b-9717-e58decdb6b6b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/transactions/sender/:senderId",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"transactions",
+								"sender",
+								":senderId"
+							],
+							"variable": [
+								{
+									"id": "2f8edce7-c3e8-47bf-8902-7630b847c51b",
+									"key": "senderId",
+									"value": "1",
+									"description": "O ID do remetente da transação"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Transactions by Receiver ID",
+					"id": "dc9c3f57-3838-49c4-ac88-13bd6cecf87d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/transactions/receiver/:receiverId",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"transactions",
+								"receiver",
+								":receiverId"
+							],
+							"variable": [
+								{
+									"id": "d7b41e57-2027-4a01-89f4-8a9c01d75c10",
+									"key": "receiverId",
+									"value": "2",
+									"description": "O ID do destinatário da transação"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Transaction",
+					"id": "865f4eb6-b1f4-4316-8194-b6111fa9f260",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"senderId\": 1,\r\n    \"receiverId\": 2,\r\n    \"value\": 70\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/transactions",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refuse Transaction",
+					"id": "2bf5c000-3867-4a13-ae0c-298971d3cf65",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/transactions/:transactionId/refuse",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"transactions",
+								":transactionId",
+								"refuse"
+							],
+							"variable": [
+								{
+									"id": "c756deb0-76c4-4884-be5d-305020240dfb",
+									"key": "transactionId",
+									"value": "1",
+									"description": "O ID da transação que será recusada"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "60f87aeb-5f14-41eb-8b3e-34603a2667ab"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "bf024e48-7e25-42ca-ae7d-b0885dccb430",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "23d67ace-32d3-4545-831a-3cc58e463a2b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "4dfb2bde-7ade-48fc-b801-099520d5d9ec",
+			"key": "base",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	]
+}

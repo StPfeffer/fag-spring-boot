@@ -4,8 +4,14 @@ import com.fag.domain.dtos.TransactionDTO;
 import com.fag.domain.dtos.TransactionRequestDTO;
 import com.fag.domain.dtos.UserDTO;
 import com.fag.domain.exceptions.TransactionException;
+import com.fag.domain.mappers.TransactionMapper;
+import com.fag.domain.mappers.UserMapper;
 import com.fag.domain.repositories.ITransactionRepository;
 import com.fag.domain.usecases.CreateTransaction;
+import com.fag.infra.jakarta.mappers.JakartaTransactionMapper;
+import com.fag.infra.jakarta.mappers.JakartaUserMapper;
+import com.fag.infra.jakarta.model.JakartaTransaction;
+import com.fag.infra.jakarta.model.JakartaUser;
 import com.fag.infra.jakarta.repository.JakartaTransactionRepository;
 import com.fag.infra.mocky.repository.TransactionMocky;
 import jakarta.transaction.Transactional;
@@ -30,20 +36,20 @@ public class TransactionService implements ITransactionRepository {
 
     @Transactional
     public TransactionDTO createTransaction(TransactionRequestDTO request) {
-        UserDTO sender = this.userService.findUserById(request.senderId());
-        UserDTO receiver = this.userService.findUserById(request.receiverId());
+        UserDTO sender = this.userService.findUserById(request.getSenderId());
+        UserDTO receiver = this.userService.findUserById(request.getReceiverId());
 
-        this.userService.validateTransaction(sender, request.value());
+        this.userService.validateTransaction(sender, request.getValue());
 
         if (!mocky.authorizeTransaction()) {
             throw new TransactionException("Transação não autorizada pelo serviço", 500);
         }
 
-        this.updateBalance(sender, receiver, request.value());
+        this.updateBalance(sender, receiver, request.getValue());
 
         TransactionDTO dto = new TransactionDTO(
                 null,
-                request.value(),
+                request.getValue(),
                 sender,
                 receiver,
                 LocalDateTime.now(),
@@ -52,6 +58,13 @@ public class TransactionService implements ITransactionRepository {
 
         CreateTransaction createTransaction = new CreateTransaction(repository);
         return createTransaction.execute(dto);
+    }
+
+    @Transactional
+    public void saveTransaction(TransactionDTO transaction) {
+        JakartaTransaction entity = JakartaTransactionMapper.toEntity(TransactionMapper.toBO(transaction));
+
+        this.repository.save(entity);
     }
 
     @Override
@@ -76,6 +89,20 @@ public class TransactionService implements ITransactionRepository {
     @Override
     public List<TransactionDTO> listAllTransactionsByReceiver(UserDTO receiver) {
         return this.repository.listAllTransactionsByReceiver(receiver);
+    }
+
+    public TransactionDTO refuseTransactionById(Long id) {
+        TransactionDTO transaction = this.findTransactionById(id);
+
+        UserDTO sender = transaction.getSender();
+        UserDTO receiver = transaction.getReceiver();
+
+        this.updateBalance(receiver, sender, transaction.getAmount());
+
+        transaction.setSuccess(false);
+
+        this.saveTransaction(transaction);
+        return transaction;
     }
 
     private void updateBalance(UserDTO sender, UserDTO receiver, BigDecimal value) {

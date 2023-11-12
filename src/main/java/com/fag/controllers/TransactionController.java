@@ -53,4 +53,9 @@ public class TransactionController {
         return ResponseEntity.ok(this.transactionService.listAllTransactionsByUser(this.userService.findUserById(userId)));
     }
 
+    @PutMapping("/{id}/refuse")
+    public ResponseEntity<TransactionDTO> refuseTransaction(@PathVariable Long id) {
+        return ResponseEntity.ok(this.transactionService.refuseTransactionById(id));
+    }
+
 }

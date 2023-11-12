@@ -2,8 +2,11 @@ package com.fag.services;
 
 import com.fag.domain.dtos.UserDTO;
 import com.fag.domain.enums.EnumUserType;
+import com.fag.domain.mappers.UserMapper;
 import com.fag.domain.repositories.IUserRepository;
 import com.fag.domain.usecases.CreateUser;
+import com.fag.infra.jakarta.mappers.JakartaUserMapper;
+import com.fag.infra.jakarta.model.JakartaUser;
 import com.fag.infra.jakarta.repository.JakartaTransactionRepository;
 import com.fag.infra.jakarta.repository.JakartaUserRepository;
 import jakarta.transaction.Transactional;
@@ -41,6 +44,13 @@ public class UserService implements IUserRepository {
         CreateUser createUser = new CreateUser(repository);
 
         return createUser.execute(dto);
+    }
+
+    @Transactional
+    public void saveUser(UserDTO user) {
+        JakartaUser entity = JakartaUserMapper.toEntity(UserMapper.toBO(user));
+
+        this.repository.save(entity);
     }
 
     @Override

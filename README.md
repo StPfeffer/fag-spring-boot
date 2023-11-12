@@ -5,6 +5,21 @@ _Leia isso em outros idiomas_:
 
 ## Visão Geral
 
+Este projeto representa uma API de transações entre usuários, desenvolvida com base nos princípios da arquitetura limpa para garantir modularidade, flexibilidade e escalabilidade. Ao adotar essa abordagem, o código é organizado em camadas independentes, promovendo a separação de preocupações e facilitando a manutenção.
+
+As tecnologias escolhidas para a implementação são:
+
+- **Java**: A linguagem de programação robusta e versátil, escolhida pela sua ampla adoção na comunidade de desenvolvimento e pela sua capacidade de oferecer desempenho e confiabilidade.
+
+
+- **Spring** Boot: Um framework que simplifica o desenvolvimento de aplicativos Java, fornecendo um conjunto abrangente de ferramentas e convenções para a criação rápida de serviços e APIs RESTful. O Spring Boot também integra facilmente com outras tecnologias e bibliotecas, acelerando o ciclo de desenvolvimento.
+
+
+- **Jakarta Persistence API (JPA)**: Uma API padrão de persistência de dados para Java, que facilita a interação com bancos de dados relacionais. Ao adotar o JPA, o projeto ganha em portabilidade e flexibilidade, permitindo a troca de fornecedores de banco de dados de maneira mais transparente.
+
+
+- **H2**: Um banco de dados em memória que oferece uma solução leve e eficiente para desenvolvimento e teste. A escolha do H2 agiliza o processo de desenvolvimento, permitindo que os desenvolvedores testem e validem a funcionalidade da API sem a necessidade de configurar um banco de dados mais robusto durante as fases iniciais do projeto.
+
 ## Funcionalidades Principais
 
 ### Criação de Transações:
@@ -22,7 +37,7 @@ _Leia isso em outros idiomas_:
 
 ### Autorização de Transações:
 
-- Incorpora um serviço de autorização externo (Mocky) para validar transações antes da conclusão.
+- Utiliza um serviço de autorização externo para validar transações antes da conclusão.
 
 ## Estrutura do Projeto
 
@@ -71,4 +86,4 @@ Para iniciar a aplicação, utilize o comando:
 mvn spring-boot:run
 ```
 
-Por padrão, a aplicação irá abrir na porta 8080.
+Por padrão, a aplicação irá inicializar na porta 8080.

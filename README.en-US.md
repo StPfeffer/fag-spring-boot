@@ -5,6 +5,22 @@ _Read this in other languages_:
 
 ## Overview
 
+This project is an API for transactions between users, built using the principles of clean architecture to ensure modularity, flexibility, and scalability. By adopting this approach, the code is organized into independent layers, promoting the separation of concerns and facilitating maintenance.
+
+The chosen technologies for implementation are:
+
+
+- **Java**: The robust and versatile programming language, chosen for its widespread adoption in the development community and its ability to provide performance and reliability.
+
+
+- **Spring** Boot: A framework that simplifies the development of Java applications, providing a comprehensive set of tools and conventions for the rapid creation of services and RESTful APIs. Spring Boot also easily integrates with other technologies and libraries, speeding up the development cycle.
+
+
+- **Jakarta Persistence API (JPA)**: A standard data persistence API for Java, which facilitates interaction with relational databases. By adopting JPA, the project gains in portability and flexibility, allowing for a more seamless switch between database vendors.
+
+
+- **H2**: An in-memory database that offers a lightweight and efficient solution for development and testing. The choice of H2 streamlines the development process, allowing developers to test and validate API functionality without the need to set up a more robust database during the initial stages of the project.
+
 ## Key Features
 
 ### Transaction Creation:
@@ -19,7 +35,7 @@ _Read this in other languages_:
 - Sends automatic notifications to users involved in a successful transaction through an external service.
 
 ### Transaction Authorization:
-- Incorporates an external authorization service (Mocky) to validate transactions before completion.
+- Incorporates an external authorization service to validate transactions before completion.
 
 ## Project Structure
 
@@ -67,4 +83,4 @@ To start the application, use the command:
 mvn spring-boot:run
 ```
 
-By default, the application will open on port 8080.
+By default, the application will start on port 8080.

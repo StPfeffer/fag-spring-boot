@@ -15,6 +15,11 @@ public class TransactionMocky implements ITransaction {
     @Autowired
     private RestTemplate restTemplate;
 
+    /**
+     * Autoriza uma transação simulada consultando um serviço de mock.
+     *
+     * @return {@code true} se a transação foi autorizada, caso contrário {@code false}.
+     */
     @Override
     public boolean authorizeTransaction() {
         ResponseEntity<Map> authorizationResponse = restTemplate.getForEntity("https://run.mocky.io/v3/5794d450-d2e2-4412-8131-73d0293ac1cc", Map.class);

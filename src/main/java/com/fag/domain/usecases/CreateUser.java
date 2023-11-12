@@ -13,9 +13,17 @@ public class CreateUser {
         this.repository = repository;
     }
 
+    /**
+     * Executa a criação de um usuário.
+     *
+     * @param dto O objeto UserDTO que contém os dados do usuário a ser criado.
+     * @return Um objeto UserDTO representando o usuário criado.
+     */
     public UserDTO execute(UserDTO dto) {
+        // Persiste o usuário no banco de dados convertendo o DTO para BO.
         UserBO entity = repository.persist(UserMapper.toBO(dto));
 
+        // Converte a entidade BO resultante de volta para DTO antes de retornar.
         return UserMapper.toDTO(entity);
     }
 

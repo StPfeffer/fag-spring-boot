@@ -5,6 +5,12 @@ import com.fag.domain.entities.UserBO;
 
 public class UserMapper {
 
+    /**
+     * Converte um objeto UserBO para um objeto UserDTO.
+     *
+     * @param bo O objeto UserBO a ser convertido.
+     * @return Um novo objeto UserDTO convertido a partir do UserBO fornecido.
+     */
     public static UserDTO toDTO(UserBO bo) {
         return new UserDTO(
                 bo.id(),
@@ -18,6 +24,12 @@ public class UserMapper {
         );
     }
 
+    /**
+     * Converte um objeto UserDTO para um objeto UserBO.
+     *
+     * @param dto O objeto UserDTO a ser convertido.
+     * @return Um novo objeto UserBO convertido a partir do UserDTO fornecido.
+     */
     public static UserBO toBO(UserDTO dto) {
         return new UserBO(
                 dto.getId(),

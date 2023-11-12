@@ -10,6 +10,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ControllerExceptionHandler {
 
+    /**
+     * Manipula exceções gerais.
+     *
+     * @param exception A exceção a ser tratada.
+     * @return ResponseEntity contendo um objeto ExceptionDTO e status HTTP 500.
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionDTO> threatGeneralExceptions(Exception exception) {
         ExceptionDTO exceptionDTO = new ExceptionDTO(exception.getMessage(), "500");
@@ -17,6 +23,12 @@ public class ControllerExceptionHandler {
         return ResponseEntity.internalServerError().body(exceptionDTO);
     }
 
+    /**
+     * Manipula exceções relacionadas a usuários.
+     *
+     * @param exception A exceção do tipo UserException a ser tratada.
+     * @return ResponseEntity contendo um objeto ExceptionDTO e status HTTP correspondente.
+     */
     @ExceptionHandler(UserException.class)
     public ResponseEntity<ExceptionDTO> threatUserException(UserException exception) {
         ExceptionDTO exceptionDTO = new ExceptionDTO(exception.getMessage(), String.valueOf(exception.getStatusCode()));
@@ -28,6 +40,12 @@ public class ControllerExceptionHandler {
         };
     }
 
+    /**
+     * Manipula exceções relacionadas a transações.
+     *
+     * @param exception A exceção do tipo TransactionException a ser tratada.
+     * @return ResponseEntity contendo um objeto ExceptionDTO e status HTTP correspondente.
+     */
     @ExceptionHandler(TransactionException.class)
     public ResponseEntity<ExceptionDTO> threatTransactionException(TransactionException exception) {
         ExceptionDTO exceptionDTO = new ExceptionDTO(exception.getMessage(), String.valueOf(exception.getStatusCode()));

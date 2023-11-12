@@ -13,9 +13,17 @@ public class CreateTransaction {
         this.repository = repository;
     }
 
+    /**
+     * Executa a criação de uma transação.
+     *
+     * @param dto O objeto TransactionDTO que contém os dados da transação a ser criada.
+     * @return Um objeto TransactionDTO representando a transação criada.
+     */
     public TransactionDTO execute(TransactionDTO dto) {
+        // Persiste a transação no banco de dados convertendo o DTO para BO.
         TransactionBO entity = repository.persist(TransactionMapper.toBO(dto));
 
+        // Converte a entidade BO resultante de volta para DTO antes de retornar.
         return TransactionMapper.toDTO(entity);
     }
 

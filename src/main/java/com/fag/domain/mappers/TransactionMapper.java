@@ -5,6 +5,12 @@ import com.fag.domain.entities.TransactionBO;
 
 public class TransactionMapper {
 
+    /**
+     * Converte um objeto TransactionBO para um objeto TransactionDTO.
+     *
+     * @param bo O objeto TransactionBO a ser convertido.
+     * @return Um novo objeto TransactionDTO convertido a partir do TransactionBO fornecido.
+     */
     public static TransactionDTO toDTO(TransactionBO bo) {
         return new TransactionDTO(
                 bo.id(),
@@ -16,6 +22,12 @@ public class TransactionMapper {
         );
     }
 
+    /**
+     * Converte um objeto TransactionDTO para um objeto TransactionBO.
+     *
+     * @param dto O objeto TransactionDTO a ser convertido.
+     * @return Um novo objeto TransactionBO convertido a partir do TransactionDTO fornecido.
+     */
     public static TransactionBO toBO(TransactionDTO dto) {
         return new TransactionBO(
                 dto.getId(),

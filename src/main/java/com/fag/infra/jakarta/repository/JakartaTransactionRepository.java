@@ -5,11 +5,15 @@ import com.fag.domain.dtos.UserDTO;
 import com.fag.domain.entities.TransactionBO;
 import com.fag.domain.exceptions.TransactionException;
 import com.fag.domain.mappers.TransactionMapper;
+import com.fag.domain.mappers.UserMapper;
 import com.fag.domain.repositories.ITransactionDataBaseRepository;
 import com.fag.domain.repositories.ITransactionRepository;
 import com.fag.infra.jakarta.mappers.JakartaTransactionMapper;
+import com.fag.infra.jakarta.mappers.JakartaUserMapper;
 import com.fag.infra.jakarta.model.JakartaTransaction;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
@@ -59,7 +63,16 @@ public class JakartaTransactionRepository extends SimpleJpaRepository<JakartaTra
 
     @Override
     public List<TransactionDTO> listAllTransactionsBySender(UserDTO sender) {
-        return null;
+        TypedQuery<JakartaTransaction> query = em.createQuery("SELECT e FROM JakartaTransaction e WHERE e.sender = :sender", JakartaTransaction.class)
+                .setParameter("user", JakartaUserMapper.toEntity(UserMapper.toBO(sender)));
+
+        try {
+            return query.getResultList().stream()
+                    .map(jakartaTransaction -> TransactionMapper.toDTO(JakartaTransactionMapper.toDomain(jakartaTransaction)))
+                    .collect(Collectors.toList());
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Override

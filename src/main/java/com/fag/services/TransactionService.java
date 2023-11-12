@@ -54,7 +54,7 @@ public class TransactionService implements ITransactionRepository {
 
     @Override
     public List<TransactionDTO> listAllTransactions() {
-        return null;
+        return this.repository.listAllTransactions();
     }
 
     @Override

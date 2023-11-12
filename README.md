@@ -1,7 +1,7 @@
 # Transaction API
 
 _Leia isso em outros idiomas_:
-[English](README.md)
+[English](README.en-US.md)
 
 ## Visão Geral
 

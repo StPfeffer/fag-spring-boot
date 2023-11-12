@@ -18,23 +18,23 @@ public final class TransactionDTO {
         this.timestamp = timestamp;
     }
 
-    public Long id() {
+    public Long getId() {
         return id;
     }
 
-    public BigDecimal amount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public UserDTO sender() {
+    public UserDTO getSender() {
         return sender;
     }
 
-    public UserDTO receiver() {
+    public UserDTO getReceiver() {
         return receiver;
     }
 
-    public LocalDateTime timestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 

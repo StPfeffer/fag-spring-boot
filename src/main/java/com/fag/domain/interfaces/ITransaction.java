@@ -1,4 +1,4 @@
-package com.fag.domain.repositories;
+package com.fag.domain.interfaces;
 
 public interface ITransaction {
 

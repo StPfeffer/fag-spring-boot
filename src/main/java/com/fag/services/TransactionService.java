@@ -10,7 +10,8 @@ import com.fag.domain.usecases.CreateTransaction;
 import com.fag.infra.jakarta.mappers.JakartaTransactionMapper;
 import com.fag.infra.jakarta.model.JakartaTransaction;
 import com.fag.infra.jakarta.repository.JakartaTransactionRepository;
-import com.fag.infra.mocky.repository.TransactionMocky;
+import com.fag.infra.mocky.repository.MockyNotification;
+import com.fag.infra.mocky.repository.MockyTransaction;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,10 @@ public class TransactionService implements ITransactionRepository {
     private JakartaTransactionRepository repository;
 
     @Autowired
-    private TransactionMocky mocky;
+    private MockyTransaction mocky;
+
+    @Autowired
+    private MockyNotification notification;
 
     /**
      * Cria uma nova transação entre usuários.
@@ -45,7 +49,7 @@ public class TransactionService implements ITransactionRepository {
 
         this.userService.validateTransaction(sender, request.getValue());
 
-        if (!mocky.authorizeTransaction()) {
+        if (!this.mocky.authorizeTransaction()) {
             throw new TransactionException("Transação não autorizada pelo serviço", 500);
         }
 
@@ -59,6 +63,9 @@ public class TransactionService implements ITransactionRepository {
                 LocalDateTime.now(),
                 true
         );
+
+        this.notification.sendNotification(sender, "Transação realizada com sucesso!");
+        this.notification.sendNotification(receiver, "Transação recebida com sucesso!");
 
         CreateTransaction createTransaction = new CreateTransaction(repository);
         return createTransaction.execute(dto);

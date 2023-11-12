@@ -25,9 +25,9 @@ public class UserController {
 
     @PostMapping("/batch")
     public ResponseEntity<List<UserDTO>> batchCreateUser(@RequestBody List<UserDTO> users) {
-        List<UserDTO> listOfNewUsers = users.stream().map(user -> this.userService.createUser(user)).toList();
+        List<UserDTO> createdUsers = users.stream().map(user -> this.userService.createUser(user)).toList();
 
-        return new ResponseEntity<>(listOfNewUsers, HttpStatus.CREATED);
+        return new ResponseEntity<>(createdUsers, HttpStatus.CREATED);
     }
 
     @GetMapping

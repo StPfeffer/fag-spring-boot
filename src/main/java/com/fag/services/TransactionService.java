@@ -7,6 +7,7 @@ import com.fag.domain.exceptions.TransactionException;
 import com.fag.domain.repositories.ITransactionRepository;
 import com.fag.domain.usecases.CreateTransaction;
 import com.fag.infra.jakarta.repository.JakartaTransactionRepository;
+import com.fag.infra.mocky.repository.TransactionMocky;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,9 @@ public class TransactionService implements ITransactionRepository {
 
     @Autowired
     private JakartaTransactionRepository repository;
+
+    @Autowired
+    private TransactionMocky mocky;
 
     @Transactional
     public TransactionDTO createTransaction(TransactionRequestDTO request) {

@@ -10,7 +10,6 @@ import com.fag.domain.usecases.CreateTransaction;
 import com.fag.infra.jakarta.mappers.JakartaTransactionMapper;
 import com.fag.infra.jakarta.model.JakartaTransaction;
 import com.fag.infra.jakarta.repository.JakartaTransactionRepository;
-import com.fag.infra.mocky.repository.MockyNotification;
 import com.fag.infra.mocky.repository.MockyTransaction;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ public class TransactionService implements ITransactionRepository {
     private JakartaTransactionRepository repository;
 
     @Autowired
-    private MockyTransaction mocky;
+    private MockyTransaction authorization;
 
     @Autowired
     private NotificationService notificationService;
@@ -61,12 +60,15 @@ public class TransactionService implements ITransactionRepository {
                 true
         );
 
-        this.sendTransactionNotifications(sender, receiver);
 
         try {
             CreateTransaction createTransaction = new CreateTransaction(repository);
 
-            return createTransaction.execute(dto);
+            TransactionDTO transaction =  createTransaction.execute(dto);
+
+            this.sendTransactionNotifications(sender, receiver);
+
+            return transaction;
         } catch (Exception e) {
             this.handleTransactionFailure(sender, receiver, request.getValue());
 
@@ -80,7 +82,7 @@ public class TransactionService implements ITransactionRepository {
      * @throws TransactionException Se a transação não estiver autorizada.
      */
     private void authorizeTransaction() {
-        if (!mocky.authorizeTransaction()) {
+        if (!authorization.authorizeTransaction()) {
             throw new TransactionException("Transação não autorizada pelo serviço", 500);
         }
     }
@@ -117,7 +119,6 @@ public class TransactionService implements ITransactionRepository {
     @Transactional
     public void saveTransaction(TransactionDTO transaction) {
         JakartaTransaction entity = JakartaTransactionMapper.toEntity(TransactionMapper.toBO(transaction));
-
         this.repository.save(entity);
     }
 

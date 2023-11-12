@@ -5,7 +5,6 @@ import com.fag.infra.jakarta.model.JakartaUser;
 
 public class JakartaUserMapper {
 
-
     /**
      * Converte um objeto UserBO para uma entidade JakartaUser.
      *

@@ -28,4 +28,9 @@ public class UserController {
         return ResponseEntity.ok(this.userService.listAllUsers());
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long userId) throws Exception {
+        return ResponseEntity.ok(this.userService.findUserById(userId));
+    }
+
 }

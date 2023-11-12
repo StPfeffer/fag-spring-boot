@@ -44,8 +44,14 @@ public class JakartaUserRepository extends SimpleJpaRepository<JakartaUser, Long
     }
 
     @Override
-    public UserDTO findUserById(Long id) {
-        return null;
+    public UserDTO findUserById(Long id) throws Exception {
+        JakartaUser user = this.findById(id).orElse(null);
+
+        if (user == null) {
+            throw new Exception("Não existe um usuário cadastrado para este ID");
+        }
+
+        return UserMapper.toDTO(JakartaUserMapper.toDomain(user));
     }
 
     @Override

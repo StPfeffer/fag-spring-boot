@@ -33,8 +33,8 @@ public class UserService implements IUserRepository {
     }
 
     @Override
-    public UserDTO findUserById(Long id) {
-        return null;
+    public UserDTO findUserById(Long id) throws Exception {
+        return this.repository.findUserById(id);
     }
 
     @Override

@@ -9,7 +9,7 @@ public interface IUserRepository {
 
     List<UserDTO> listAllUsers();
 
-    UserDTO findUserById(Long id);
+    UserDTO findUserById(Long id) throws Exception;
 
     UserDTO findUserByDocument(String document);
 

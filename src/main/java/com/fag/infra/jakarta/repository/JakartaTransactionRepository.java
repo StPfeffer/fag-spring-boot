@@ -61,6 +61,20 @@ public class JakartaTransactionRepository extends SimpleJpaRepository<JakartaTra
                 .collect(Collectors.toList());
     }
 
+    public List<TransactionDTO> listAllTransactionsByUser(UserDTO user) {
+        TypedQuery<JakartaTransaction> query = em.createQuery("SELECT e FROM JakartaTransaction e WHERE e.sender = :sender OR e.receiver = :receiver", JakartaTransaction.class)
+                .setParameter("sender", user)
+                .setParameter("receiver", user);
+
+        try {
+            return query.getResultList().stream()
+                    .map(jakartaTransaction -> TransactionMapper.toDTO(JakartaTransactionMapper.toDomain(jakartaTransaction)))
+                    .collect(Collectors.toList());
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
     public List<TransactionDTO> listAllTransactionsBySender(UserDTO sender) {
         return listAllTransactionsByUserAndRole(sender, "sender");
     }

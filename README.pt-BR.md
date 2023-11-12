@@ -5,11 +5,6 @@ _Leia isso em outros idiomas_:
 
 ## Visão Geral
 
-O Sistema de Gerenciamento de Transações é uma aplicação robusta desenvolvida para facilitar e automatizar a gestão de
-transações financeiras entre usuários. Este sistema oferece uma solução abrangente para criar, listar e processar transações,
-enquanto mantém a integridade e a segurança dos dados. Além disso, incorpora funcionalidades como notificações em tempo real
-e validações de transações.
-
 ## Funcionalidades Principais
 
 ### Criação de Transações:

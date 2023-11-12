@@ -29,7 +29,7 @@ public class UserService implements IUserRepository {
 
     @Override
     public List<UserDTO> listAllUsers() {
-        return null;
+        return this.repository.listAllUsers();
     }
 
     @Override

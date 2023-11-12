@@ -24,7 +24,7 @@ public class TransactionService implements ITransactionRepository {
     private JakartaTransactionRepository repository;
 
     @Transactional
-    public TransactionDTO createTransaction(TransactionRequestDTO request) throws Exception {
+    public TransactionDTO createTransaction(TransactionRequestDTO request) {
         UserDTO sender = this.userService.findUserById(request.senderId());
         UserDTO receiver = this.userService.findUserById(request.receiverId());
 

@@ -2,6 +2,7 @@ package com.fag.infra.jakarta.repository;
 
 import com.fag.domain.dtos.UserDTO;
 import com.fag.domain.entities.UserBO;
+import com.fag.domain.exceptions.UserException;
 import com.fag.domain.mappers.UserMapper;
 import com.fag.domain.repositories.IUserDataBaseRepository;
 import com.fag.domain.repositories.IUserRepository;
@@ -46,11 +47,11 @@ public class JakartaUserRepository extends SimpleJpaRepository<JakartaUser, Long
     }
 
     @Override
-    public UserDTO findUserById(Long id) throws Exception {
+    public UserDTO findUserById(Long id) {
         JakartaUser user = this.findById(id).orElse(null);
 
         if (user == null) {
-            throw new Exception("Não existe um usuário cadastrado para este ID");
+            throw new UserException("Não existe um usuário cadastrado para este ID", 404);
         }
 
         return UserMapper.toDTO(JakartaUserMapper.toDomain(user));

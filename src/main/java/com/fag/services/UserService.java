@@ -2,6 +2,7 @@ package com.fag.services;
 
 import com.fag.domain.dtos.UserDTO;
 import com.fag.domain.enums.EnumUserType;
+import com.fag.domain.exceptions.UserException;
 import com.fag.domain.mappers.UserMapper;
 import com.fag.domain.repositories.IUserRepository;
 import com.fag.domain.usecases.CreateUser;
@@ -25,17 +26,17 @@ public class UserService implements IUserRepository {
     @Autowired
     private JakartaTransactionRepository transactionRepository;
 
-    public void validateTransaction(UserDTO sender, BigDecimal amount) throws Exception {
+    public void validateTransaction(UserDTO sender, BigDecimal amount) {
         if (sender == null) {
-            throw new Exception("Não existe um usuário cadastrado para este ID");
+            throw new UserException("Não existe um usuário cadastrado para este ID", 400);
         }
 
         if (sender.getType() == EnumUserType.MERCHANT) {
-            throw new Exception("Usuário do tipo Lojista não está autorizado a realizar transações");
+            throw new UserException("Usuário do tipo Lojista não está autorizado a realizar transações", 400);
         }
 
         if (sender.getBalance().compareTo(amount) < 0) {
-            throw new Exception("Saldo insuficiente");
+            throw new UserException("Saldo insuficiente", 400);
         }
     }
 
@@ -59,7 +60,7 @@ public class UserService implements IUserRepository {
     }
 
     @Override
-    public UserDTO findUserById(Long id) throws Exception {
+    public UserDTO findUserById(Long id) {
         return this.repository.findUserById(id);
     }
 

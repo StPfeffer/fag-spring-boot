@@ -61,24 +61,18 @@ public class JakartaTransactionRepository extends SimpleJpaRepository<JakartaTra
                 .collect(Collectors.toList());
     }
 
-    @Override
     public List<TransactionDTO> listAllTransactionsBySender(UserDTO sender) {
-        TypedQuery<JakartaTransaction> query = em.createQuery("SELECT e FROM JakartaTransaction e WHERE e.sender = :sender", JakartaTransaction.class)
-                .setParameter("user", JakartaUserMapper.toEntity(UserMapper.toBO(sender)));
-
-        try {
-            return query.getResultList().stream()
-                    .map(jakartaTransaction -> TransactionMapper.toDTO(JakartaTransactionMapper.toDomain(jakartaTransaction)))
-                    .collect(Collectors.toList());
-        } catch (NoResultException e) {
-            return null;
-        }
+        return listAllTransactionsByUserAndRole(sender, "sender");
     }
 
-    @Override
     public List<TransactionDTO> listAllTransactionsByReceiver(UserDTO receiver) {
-        TypedQuery<JakartaTransaction> query = em.createQuery("SELECT e FROM JakartaTransaction e WHERE e.receiver = :receiver", JakartaTransaction.class)
-                .setParameter("receiver", JakartaUserMapper.toEntity(UserMapper.toBO(receiver)));
+        return listAllTransactionsByUserAndRole(receiver, "receiver");
+    }
+
+    private List<TransactionDTO> listAllTransactionsByUserAndRole(UserDTO user, String role) {
+        String queryStr = String.format("SELECT e FROM JakartaTransaction e WHERE e.%s = :user", role);
+        TypedQuery<JakartaTransaction> query = em.createQuery(queryStr, JakartaTransaction.class)
+                .setParameter("user", JakartaUserMapper.toEntity(UserMapper.toBO(user)));
 
         try {
             return query.getResultList().stream()

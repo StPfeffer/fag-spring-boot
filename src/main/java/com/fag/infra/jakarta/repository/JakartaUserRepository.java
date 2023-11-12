@@ -37,10 +37,24 @@ public class JakartaUserRepository extends SimpleJpaRepository<JakartaUser, Long
     public UserBO persist(UserBO bo) {
         JakartaUser entity = JakartaUserMapper.toEntity(bo);
 
+        this.canCreate(entity);
+
         em.persist(entity);
         em.flush();
 
         return JakartaUserMapper.toDomain(entity);
+    }
+
+    public void canCreate(JakartaUser entity) {
+        UserDTO user = this.findUserByDocument(entity.getDocument());
+
+        if (user != null) {
+            if (user.getEmail().equalsIgnoreCase(entity.getEmail())) {
+                throw new UserException( "Já existe um usuário cadastrado com este email", 400);
+            }
+
+            throw new UserException( "Já existe um usuário cadastrado com este documento", 400);
+        }
     }
 
     /**

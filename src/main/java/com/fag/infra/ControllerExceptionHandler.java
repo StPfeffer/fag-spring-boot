@@ -3,6 +3,7 @@ package com.fag.infra;
 import com.fag.domain.dtos.ExceptionDTO;
 import com.fag.domain.exceptions.TransactionException;
 import com.fag.domain.exceptions.UserException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -21,6 +22,13 @@ public class ControllerExceptionHandler {
         ExceptionDTO exceptionDTO = new ExceptionDTO(exception.getMessage(), "500");
 
         return ResponseEntity.internalServerError().body(exceptionDTO);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ExceptionDTO> DataIntegrityViolationExceptions(DataIntegrityViolationException exception) {
+        ExceptionDTO exceptionDTO = new ExceptionDTO(exception.getMessage(), "400");
+
+        return ResponseEntity.badRequest().body(exceptionDTO);
     }
 
     /**

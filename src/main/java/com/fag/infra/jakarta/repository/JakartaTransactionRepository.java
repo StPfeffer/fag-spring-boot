@@ -63,8 +63,8 @@ public class JakartaTransactionRepository extends SimpleJpaRepository<JakartaTra
 
     public List<TransactionDTO> listAllTransactionsByUser(UserDTO user) {
         TypedQuery<JakartaTransaction> query = em.createQuery("SELECT e FROM JakartaTransaction e WHERE e.sender = :sender OR e.receiver = :receiver", JakartaTransaction.class)
-                .setParameter("sender", user)
-                .setParameter("receiver", user);
+                .setParameter("sender", JakartaUserMapper.toEntity(UserMapper.toBO(user)))
+                .setParameter("receiver", JakartaUserMapper.toEntity(UserMapper.toBO(user)));
 
         try {
             return query.getResultList().stream()

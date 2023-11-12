@@ -1,41 +1,37 @@
 # Transaction API
 
-_Leia isso em outros idiomas_:
-[English](README.md)
+_Read this in other languages_:
+[Português](README.pt-BR.md)
 
-## Visão Geral
+## Overview
 
-## Funcionalidades Principais
+## Key Features
 
-### Criação de Transações:
+### Transaction Creation:
 
-- Permite aos usuários criar novas transações fornecendo detalhes como remetente, destinatário e valor.
+- Allows users to create new transactions by providing details such as sender, recipient, and amount.
 
-### Listagem de Transações:
+### Transaction Listing:
+- Presents a comprehensive view of all completed transactions.
+- Enables filtering by sender, recipient, and other criteria.
 
-- Apresenta uma visão abrangente de todas as transações realizadas.
-- Permite a filtragem por remetente, destinatário e outros critérios.
+### Real-time Notifications:
+- Sends automatic notifications to users involved in a successful transaction through an external service.
 
-### Notificações em Tempo Real:
+### Transaction Authorization:
+- Incorporates an external authorization service (Mocky) to validate transactions before completion.
 
-- Envia notificações automáticas para os usuários envolvidos em uma transação bem-sucedida através de um serviço externo.
-
-### Autorização de Transações:
-
-- Incorpora um serviço de autorização externo (Mocky) para validar transações antes da conclusão.
-
-## Estrutura do Projeto
+## Project Structure
 
 ![img.png](assets/img.png)
 
-## Como Usar
+## How to Use
 
-### Java e Maven
+### Java and Maven
 
-Primeiramente, certifique-se de ter o [Java](https://www.oracle.com/java/technologies/downloads/) e o
-[Maven](https://maven.apache.org/download.cgi) instalados.
+Firstly, ensure you have [Java](https://www.oracle.com/java/technologies/downloads/) and [Maven](https://maven.apache.org/download.cgi) installed.
 
-### Instalar as dependências
+### Install Dependencies
 
 - Spring Boot
 - H2 Database
@@ -45,30 +41,30 @@ Primeiramente, certifique-se de ter o [Java](https://www.oracle.com/java/technol
 mvn clean install
 ```
 
-### Banco de Dados
+### Database
 
-Configure as propriedades do banco de dados no arquivo `src/main/resources/application.properties`.
+Configure the database properties in the src/main/resources/application.properties file.
 
-**Obs**: Por padrão, está configurado um banco de dados `H2` em memória.
+*Note*: By default, an in-memory H2 database is configured.
 
 ### Postman
 
-Nos diretórios do projeto, existe uma pasta chamada `postman`, contendo uma _collection_, com todos os endpoints da API.
+In the project directories, there is a folder named postman, containing a collection with all API endpoints.
 
-Para utilizá-la, basta copiar o conteúdo do arquivo `postman/collections/Transaction API.json` e colar no _Postman_:
+To use it, copy the content of the postman/collections/Transaction API.json file and paste it into Postman:
 
 ![img1.png](assets/img1.png)
 
-Caso utilize o [IntelliJ](https://www.jetbrains.com/idea/), é possível realizar as requisições HTTP pela IDE:
+If you use IntelliJ, you can make HTTP requests directly from the IDE:
 
 ![img2.png](assets/img2.png)
 
-### Execute a aplicação:
+### Run the Application:
 
-Para iniciar a aplicação, utilize o comando:
+To start the application, use the command:
 
 ```
 mvn spring-boot:run
 ```
 
-Por padrão, a aplicação irá abrir na porta 8080.
+By default, the application will open on port 8080.

@@ -1,5 +1,6 @@
 package com.fag.services;
 
+import com.fag.domain.dtos.TransactionDTO;
 import com.fag.domain.dtos.UserDTO;
 import com.fag.domain.enums.EnumUserType;
 import com.fag.domain.exceptions.UserException;
@@ -67,6 +68,46 @@ public class UserService implements IUserRepository {
     @Override
     public UserDTO findUserByDocument(String document) {
         return this.repository.findUserByDocument(document);
+    }
+
+    @Transactional
+    public UserDTO updateUser(Long id,UserDTO user) {
+        UserDTO entity = this.findUserById(id);
+
+        if (entity == null) {
+            throw new UserException("Não existe um usuário cadastrado para este ID", 404);
+        }
+
+        entity.setFirstName(user.getFirstName());
+        entity.setLastName(user.getLastName());
+        entity.setDocument(user.getDocument());
+        entity.setEmail(user.getEmail());
+        entity.setPassword(user.getPassword());
+        entity.setBalance(user.getBalance());
+        entity.setType(user.getType());
+
+        this.repository.save(JakartaUserMapper.toEntity(UserMapper.toBO(entity)));
+
+        return user;
+    }
+
+    @Transactional
+    public UserDTO deleteUser(Long id) {
+        JakartaUser user = this.repository.findById(id).orElse(null);
+
+        if (user == null) {
+            throw new UserException("Não existe um usuário cadastrado para este ID", 404);
+        }
+
+        UserDTO userDTO = UserMapper.toDTO(JakartaUserMapper.toDomain(user));
+        List<TransactionDTO> userTransactions = this.transactionRepository.listAllTransactionsByUser(userDTO);
+
+        if (!userTransactions.isEmpty()) {
+            throw new UserException("Não é possível excluir um usuário que possui transações", 400);
+        }
+
+        this.repository.delete(user);
+        return userDTO;
     }
 
 }

@@ -45,4 +45,14 @@ public class UserController {
         return ResponseEntity.ok(this.userService.findUserByDocument(document));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO user) {
+        return new ResponseEntity<>(this.userService.updateUser(id, user), HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<UserDTO> deleteUser(@PathVariable Long id) {
+        return ResponseEntity.ok(this.userService.deleteUser(id));
+    }
+
 }

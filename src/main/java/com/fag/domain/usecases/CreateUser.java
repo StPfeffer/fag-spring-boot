@@ -7,14 +7,14 @@ import com.fag.domain.repositories.IUserDataBaseRepository;
 
 public class CreateUser {
 
-    private final IUserDataBaseRepository dbRepository;
+    private final IUserDataBaseRepository repository;
 
-    public CreateUser(IUserDataBaseRepository dbRepository) {
-        this.dbRepository = dbRepository;
+    public CreateUser(IUserDataBaseRepository repository) {
+        this.repository = repository;
     }
 
     public UserDTO execute(UserDTO dto) {
-        UserBO entity = dbRepository.persist(UserMapper.toBO(dto));
+        UserBO entity = repository.persist(UserMapper.toBO(dto));
 
         return UserMapper.toDTO(entity);
     }

@@ -7,14 +7,14 @@ import com.fag.domain.repositories.ITransactionDataBaseRepository;
 
 public class CreateTransaction {
 
-    private final ITransactionDataBaseRepository dbRepository;
+    private final ITransactionDataBaseRepository repository;
 
-    public CreateTransaction(ITransactionDataBaseRepository dbRepository) {
-        this.dbRepository = dbRepository;
+    public CreateTransaction(ITransactionDataBaseRepository repository) {
+        this.repository = repository;
     }
 
     public TransactionDTO execute(TransactionDTO dto) {
-        TransactionBO entity = dbRepository.persist(TransactionMapper.toBO(dto));
+        TransactionBO entity = repository.persist(TransactionMapper.toBO(dto));
 
         return TransactionMapper.toDTO(entity);
     }

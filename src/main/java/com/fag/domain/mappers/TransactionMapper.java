@@ -11,7 +11,8 @@ public class TransactionMapper {
                 bo.amount(),
                 UserMapper.toDTO(bo.sender()),
                 UserMapper.toDTO(bo.receiver()),
-                bo.timestamp()
+                bo.timestamp(),
+                bo.success()
         );
     }
 
@@ -21,7 +22,8 @@ public class TransactionMapper {
                 dto.amount(),
                 UserMapper.toBO(dto.sender()),
                 UserMapper.toBO(dto.receiver()),
-                dto.timestamp()
+                dto.timestamp(),
+                dto.success()
         );
     }
 

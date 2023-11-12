@@ -10,7 +10,8 @@ public class JakartaTransactionMapper {
                 domain.amount(),
                 JakartaUserMapper.toEntity(domain.sender()),
                 JakartaUserMapper.toEntity(domain.receiver()),
-                domain.timestamp()
+                domain.timestamp(),
+                domain.success()
         );
     }
 
@@ -20,7 +21,8 @@ public class JakartaTransactionMapper {
                 entity.getAmount(),
                 JakartaUserMapper.toDomain(entity.getSender()),
                 JakartaUserMapper.toDomain(entity.getReceiver()),
-                entity.getTimestamp()
+                entity.getTimestamp(),
+                entity.isSuccess()
         );
     }
 

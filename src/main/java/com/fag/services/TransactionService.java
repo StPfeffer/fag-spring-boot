@@ -46,7 +46,8 @@ public class TransactionService implements ITransactionRepository {
                 request.value(),
                 sender,
                 receiver,
-                LocalDateTime.now()
+                LocalDateTime.now(),
+                true
         );
 
         CreateTransaction createTransaction = new CreateTransaction(repository);

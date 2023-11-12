@@ -13,6 +13,7 @@ public class JakartaTransaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private BigDecimal amount;
 
     @ManyToOne
@@ -23,14 +24,18 @@ public class JakartaTransaction {
 
     private LocalDateTime timestamp;
 
+    @Column(nullable = false)
+    private boolean success;
+
     public JakartaTransaction() {
     }
 
-    public JakartaTransaction(BigDecimal amount, JakartaUser sender, JakartaUser receiver, LocalDateTime timestamp) {
+    public JakartaTransaction(BigDecimal amount, JakartaUser sender, JakartaUser receiver, LocalDateTime timestamp, boolean success) {
         this.amount = amount;
         this.sender = sender;
         this.receiver = receiver;
         this.timestamp = timestamp;
+        this.success = success;
     }
 
     public Long getId() {
@@ -73,4 +78,11 @@ public class JakartaTransaction {
         this.timestamp = timestamp;
     }
 
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
 }

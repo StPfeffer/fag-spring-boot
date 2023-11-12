@@ -27,6 +27,8 @@ public class TransactionService implements ITransactionRepository {
         UserDTO sender = this.userService.findUserById(request.senderId());
         UserDTO receiver = this.userService.findUserById(request.receiverId());
 
+        this.userService.validateTransaction(sender, request.value());
+
         TransactionDTO dto = new TransactionDTO(
                 null,
                 request.value(),

@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ITransactionRepository {
 
+    TransactionDTO findTransactionById(Long id);
+
     List<TransactionDTO> listAllTransactions();
 
     List<TransactionDTO> listAllTransactionsBySender(UserDTO sender);

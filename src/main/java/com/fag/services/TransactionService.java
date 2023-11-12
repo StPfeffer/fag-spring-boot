@@ -44,12 +44,9 @@ public class TransactionService implements ITransactionRepository {
         return createTransaction.execute(dto);
     }
 
-    private void updateBalance(UserDTO sender, UserDTO receiver, BigDecimal value) {
-        sender.setBalance(sender.getBalance().subtract(value));
-        receiver.setBalance(receiver.getBalance().add(value));
-
-        this.userService.saveUser(sender);
-        this.userService.saveUser(receiver);
+    @Override
+    public TransactionDTO findTransactionById(Long id) {
+        return this.repository.findTransactionById(id);
     }
 
     @Override
@@ -65,6 +62,14 @@ public class TransactionService implements ITransactionRepository {
     @Override
     public List<TransactionDTO> listAllTransactionsByReceiver(UserDTO receiver) {
         return null;
+    }
+
+    private void updateBalance(UserDTO sender, UserDTO receiver, BigDecimal value) {
+        sender.setBalance(sender.getBalance().subtract(value));
+        receiver.setBalance(receiver.getBalance().add(value));
+
+        this.userService.saveUser(sender);
+        this.userService.saveUser(receiver);
     }
 
 }

@@ -3,6 +3,7 @@ package com.fag.infra.jakarta.repository;
 import com.fag.domain.dtos.TransactionDTO;
 import com.fag.domain.dtos.UserDTO;
 import com.fag.domain.entities.TransactionBO;
+import com.fag.domain.exceptions.TransactionException;
 import com.fag.domain.mappers.TransactionMapper;
 import com.fag.domain.repositories.ITransactionDataBaseRepository;
 import com.fag.domain.repositories.ITransactionRepository;
@@ -35,6 +36,16 @@ public class JakartaTransactionRepository extends SimpleJpaRepository<JakartaTra
         em.flush();
 
         return JakartaTransactionMapper.toDomain(entity);
+    }
+
+    public TransactionDTO findTransactionById(Long id) {
+        JakartaTransaction transaction = this.findById(id).orElse(null);
+
+        if (transaction == null) {
+            throw new TransactionException("Não existe um usuário cadastrado para este ID", 404);
+        }
+
+        return TransactionMapper.toDTO(JakartaTransactionMapper.toDomain(transaction));
     }
 
     @Override

@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface IUserRepository {
 
-    List<UserDTO> listAllUsers();
-
-    UserDTO findUserById(Long id) throws Exception;
+    UserDTO findUserById(Long id);
 
     UserDTO findUserByDocument(String document);
+
+    List<UserDTO> listAllUsers();
 
 }

@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,6 +30,8 @@ public class TransactionService implements ITransactionRepository {
 
         this.userService.validateTransaction(sender, request.value());
 
+        this.updateBalance(sender, receiver, request.value());
+
         TransactionDTO dto = new TransactionDTO(
                 null,
                 request.value(),
@@ -39,6 +42,14 @@ public class TransactionService implements ITransactionRepository {
 
         CreateTransaction createTransaction = new CreateTransaction(repository);
         return createTransaction.execute(dto);
+    }
+
+    private void updateBalance(UserDTO sender, UserDTO receiver, BigDecimal value) {
+        sender.setBalance(sender.getBalance().subtract(value));
+        receiver.setBalance(receiver.getBalance().add(value));
+
+        this.userService.saveUser(sender);
+        this.userService.saveUser(receiver);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.fag.services;
 import com.fag.domain.dtos.TransactionDTO;
 import com.fag.domain.dtos.TransactionRequestDTO;
 import com.fag.domain.dtos.UserDTO;
+import com.fag.domain.exceptions.TransactionException;
 import com.fag.domain.repositories.ITransactionRepository;
 import com.fag.domain.usecases.CreateTransaction;
 import com.fag.infra.jakarta.repository.JakartaTransactionRepository;
@@ -29,6 +30,10 @@ public class TransactionService implements ITransactionRepository {
         UserDTO receiver = this.userService.findUserById(request.receiverId());
 
         this.userService.validateTransaction(sender, request.value());
+
+        if (!mocky.authorizeTransaction()) {
+            throw new TransactionException("Transação não autorizada pelo serviço", 500);
+        }
 
         this.updateBalance(sender, receiver, request.value());
 

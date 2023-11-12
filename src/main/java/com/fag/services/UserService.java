@@ -23,6 +23,7 @@ public class UserService implements IUserRepository {
     @Transactional
     public UserDTO createUser(UserDTO dto) {
         CreateUser createUser = new CreateUser(repository);
+
         return createUser.execute(dto);
     }
 

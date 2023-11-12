@@ -1,5 +1,7 @@
 package com.fag.domain.dtos;
 
+import com.fag.domain.enums.EnumUserType;
+
 import java.math.BigDecimal;
 
 public final class UserDTO {
@@ -10,9 +12,9 @@ public final class UserDTO {
     private String email;
     private String password;
     private BigDecimal balance;
-    private String type;
+    private EnumUserType type;
 
-    public UserDTO(Long id, String firstName, String lastName, String document, String email, String password, BigDecimal balance, String type) {
+    public UserDTO(Long id, String firstName, String lastName, String document, String email, String password, BigDecimal balance, EnumUserType type) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -79,11 +81,11 @@ public final class UserDTO {
         this.balance = balance;
     }
 
-    public String getType() {
+    public EnumUserType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(EnumUserType type) {
         this.type = type;
     }
 

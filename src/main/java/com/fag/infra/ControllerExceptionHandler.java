@@ -1,6 +1,7 @@
 package com.fag.infra;
 
 import com.fag.domain.dtos.ExceptionDTO;
+import com.fag.domain.exceptions.TransactionException;
 import com.fag.domain.exceptions.UserException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,6 +16,16 @@ public class ControllerExceptionHandler {
 
         return switch (exception.getStatusCode()) {
             case 400 -> ResponseEntity.badRequest().body(exceptionDTO);
+            case 404 -> ResponseEntity.notFound().build();
+            default -> ResponseEntity.internalServerError().body(exceptionDTO);
+        };
+    }
+
+    @ExceptionHandler(TransactionException.class)
+    public ResponseEntity<ExceptionDTO> threatTransactionException(TransactionException exception) {
+        ExceptionDTO exceptionDTO = new ExceptionDTO(exception.getMessage(), String.valueOf(exception.getStatusCode()));
+
+        return switch (exception.getStatusCode()) {
             case 404 -> ResponseEntity.notFound().build();
             default -> ResponseEntity.internalServerError().body(exceptionDTO);
         };

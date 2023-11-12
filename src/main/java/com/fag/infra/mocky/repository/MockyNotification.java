@@ -14,6 +14,9 @@ public class MockyNotification {
     @Autowired
     private RestTemplate restTemplate;
 
+    /**
+     * Envia uma notificação para o usuário.
+     */
     public void sendNotification(UserDTO user, String message) {
         String email = user.getEmail();
         NotificationDTO notificationRequest = new NotificationDTO(email, message);

@@ -43,4 +43,9 @@ public class TransactionController {
         return ResponseEntity.ok(this.transactionService.listAllTransactionsBySender(this.userService.findUserById(senderId)));
     }
 
+    @GetMapping("/receiver/{receiverId}")
+    public ResponseEntity<List<TransactionDTO>> listTransactionsByReceiver(@PathVariable Long receiverId) {
+        return ResponseEntity.ok(this.transactionService.listAllTransactionsByReceiver(this.userService.findUserById(receiverId)));
+    }
+
 }

@@ -61,7 +61,7 @@ public class TransactionService implements ITransactionRepository {
 
     @Override
     public List<TransactionDTO> listAllTransactionsByReceiver(UserDTO receiver) {
-        return null;
+        return this.repository.listAllTransactionsByReceiver(receiver);
     }
 
     private void updateBalance(UserDTO sender, UserDTO receiver, BigDecimal value) {

@@ -13,7 +13,7 @@ The chosen technologies for implementation are:
 - **Java**: The robust and versatile programming language, chosen for its widespread adoption in the development community and its ability to provide performance and reliability.
 
 
-- **Spring** Boot: A framework that simplifies the development of Java applications, providing a comprehensive set of tools and conventions for the rapid creation of services and RESTful APIs. Spring Boot also easily integrates with other technologies and libraries, speeding up the development cycle.
+- **Spring Boot**: A framework that simplifies the development of Java applications, providing a comprehensive set of tools and conventions for the rapid creation of services and RESTful APIs. Spring Boot also easily integrates with other technologies and libraries, speeding up the development cycle.
 
 
 - **Jakarta Persistence API (JPA)**: A standard data persistence API for Java, which facilitates interaction with relational databases. By adopting JPA, the project gains in portability and flexibility, allowing for a more seamless switch between database vendors.
@@ -64,6 +64,8 @@ Configure the database properties in the src/main/resources/application.properti
 *Note*: By default, an in-memory H2 database is configured.
 
 ### Postman
+
+[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/25630504-041b878b-1a1b-48ca-b1db-ec3e63343d71?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D25630504-041b878b-1a1b-48ca-b1db-ec3e63343d71%26entityType%3Dcollection%26workspaceId%3Dcfd8052d-40cd-44c6-b0f0-a2325f1f5430)
 
 In the project directories, there is a folder named postman, containing a collection with all API endpoints.
 

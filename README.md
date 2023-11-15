@@ -68,8 +68,6 @@ Configure as propriedades do banco de dados no arquivo `src/main/resources/appli
 
 ### Postman
 
-É possível executar os endpoints através da _collection_:
-
 [<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/25630504-041b878b-1a1b-48ca-b1db-ec3e63343d71?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D25630504-041b878b-1a1b-48ca-b1db-ec3e63343d71%26entityType%3Dcollection%26workspaceId%3Dcfd8052d-40cd-44c6-b0f0-a2325f1f5430)
 
 Nos diretórios do projeto, existe uma pasta chamada `postman`, contendo uma _collection_, com todos os endpoints da API.

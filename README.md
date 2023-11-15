@@ -12,7 +12,7 @@ As tecnologias escolhidas para a implementação são:
 - **Java**: A linguagem de programação robusta e versátil, escolhida pela sua ampla adoção na comunidade de desenvolvimento e pela sua capacidade de oferecer desempenho e confiabilidade.
 
 
-- **Spring** Boot: Um framework que simplifica o desenvolvimento de aplicativos Java, fornecendo um conjunto abrangente de ferramentas e convenções para a criação rápida de serviços e APIs RESTful. O Spring Boot também integra facilmente com outras tecnologias e bibliotecas, acelerando o ciclo de desenvolvimento.
+- **Spring Boot**: Um framework que simplifica o desenvolvimento de aplicativos Java, fornecendo um conjunto abrangente de ferramentas e convenções para a criação rápida de serviços e APIs RESTful. O Spring Boot também integra facilmente com outras tecnologias e bibliotecas, acelerando o ciclo de desenvolvimento.
 
 
 - **Jakarta Persistence API (JPA)**: Uma API padrão de persistência de dados para Java, que facilita a interação com bancos de dados relacionais. Ao adotar o JPA, o projeto ganha em portabilidade e flexibilidade, permitindo a troca de fornecedores de banco de dados de maneira mais transparente.
